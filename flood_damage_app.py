@@ -112,14 +112,6 @@ def flood_damage_pipeline(pre, post, rainfall_72h=120, peak_intensity=18, humidi
     post = _prepare_image(post)
 
     if pre.shape[:2] != post.shape[:2]:
-        pre_ratio = pre.shape[1] / pre.shape[0]
-        post_ratio = post.shape[1] / post.shape[0]
-        if abs(pre_ratio - post_ratio) / pre_ratio > 0.02:
-            raise gr.Error(
-                "The before and after images have different aspect ratios. "
-                "Use images covering the same area with matching proportions."
-            )
-
         interpolation = (
             cv2.INTER_AREA
             if post.shape[0] > pre.shape[0] or post.shape[1] > pre.shape[1]
